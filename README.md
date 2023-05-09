@@ -70,7 +70,7 @@ mkdir public && cd public && mkdir css js img && touch index.html about.html con
 ### 5. 🚀 Start the server
 Now, we can start the server by running the following command in the terminal:
 ```bash
-node 
+node index.js
 ```
 This will start the server and it should be accessible at http://localhost:3000 in your web browser.
 
