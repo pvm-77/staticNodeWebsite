@@ -1,6 +1,6 @@
-# 🌐 Static Site using Node.js  🚀
+# 🌐 Static Site using Node.js and Express 🚀
 
-This is a guide to create a static website using Node.js only, without using any framework. Node.js is a popular JavaScript runtime that allows us to easily create web applications and APIs.
+This is a guide to create a static website using Node.js and Express. Express is a popular Node.js framework that allows us to easily create web applications and APIs.
 
 ## 🚀 Getting Started
 
@@ -20,45 +20,33 @@ Next, we need to initialize a new Node.js project in our directory. This will cr
 npm init -y
 # The -y flag tells NPM to accept the default options for the package.json file.
 ```
+### 3. 📥 Install Express
+Now, we need to install Express. We can do this using NPM:
 
-
-
-### 3. 📝 Create a new file called index.js and add the following code
+```bash
+npm install express --save
+# The --save flag tells NPM to save the dependency in the package.json file.
+```
+### 4. 📝 Create a new file called index.js and add the following code
+We'll create a new file called index.js and add the following code to it:
 
 ```js
-const http = require('http')
-const fs = require('fs');
-const path = require('path');
-const app = (request, response) => {
-    let filePath = path.join(__dirname, 'public', 'index.html');
-    if (request.url !== '/') {
-        filePath = path.join(__dirname, 'public', request.url);
-    }
-    fs.readFile(filePath, (err, data) => {
-        if (err) {
-            response.writeHead(404, { 'Content-Type': 'text/html' });
-            return response.end('404 Not Found');
-        }
-        let contentType = 'text/html';
-        if (filePath.endsWith('.css')) {
-            contentType = 'text/css';
-        } else if (filePath.endsWith('.js')) {
-            contentType = 'text/javascript';
-        }
-        response.writeHead(200, { 'Content-Type': contentType });
-        response.end(data);
-    });
-}
-const server = http.createServer(app)
-server.listen(3000, () => {
-    console.log('🚀 Server listening on http://localhost:3000');
-})
+const express = require('express');
+const app = express();
+
+// Serve static files from the "public" directory
+app.use(express.static('public'));
+
+// Start the server
+app.listen(3000, () => {
+  console.log('🚀 Server listening on http://localhost:3000');
+});
 ```
-This code  serves static files from the public directory, including HTML, CSS, and JavaScript. If a file is not found, it sends a 404 response. The content type of the file is set based on its extension.
+This code creates a new Express application and sets up a middleware to serve static files from the public directory. We're telling Express to serve all static files from the public directory, including HTML, CSS, JavaScript, images, etc.
 
 We also set up the server to listen on port 3000. When you start the server, you should see a message in the console that says "🚀 Server listening on http://localhost:3000".
 
-### 4. 📂 Create a new directory called public and add your static files
+### 5. 📂 Create a new directory called public and add your static files
 We need to create a new directory called public and add our static files to it. This is where we'll put all of our HTML, CSS, JavaScript, images, and other static files that we want to serve.
 
 ```bash
@@ -66,18 +54,23 @@ mkdir public && cd public && mkdir css js img && touch index.html about.html con
 
 # for windows
  mkdir public && cd public && mkdir css js img && type nul > index.html && type nul > about.html && type nul > contact.html && type nul > home.html && mkdir css && mkdir js && type nul > css\styles.css && type nul > js\main.js
+
 ```
-### 5. 🚀 Start the server
+
+### 6. 🚀 Start the server
 Now, we can start the server by running the following command in the terminal:
+
 ```bash
-node 
+node index.js
 ```
 This will start the server and it should be accessible at http://localhost:3000 in your web browser.
 
-### 6. 🌐 Open your browser and navigate to `http://localhost:3000` to see your static website
+### 7. 🌐 Open your browser and navigate to `http://localhost:3000` to see your static website
 
 That's it! You should now be able to see your static website in your web browser at `http://localhost:3000`.
 
 ## 🎉 Conclusion
-That's how you can create a simple static website using Node.js. From here, you can add more features to your website such as dynamic routes, APIs, and more.
+
+That's how you can create a simple static website using Node.js and Express. From here, you can add more features to your website such as dynamic routes, APIs, and more.
+
 
